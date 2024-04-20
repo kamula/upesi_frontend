@@ -16,10 +16,16 @@ import { MuiTelInput, matchIsValidTel } from 'mui-tel-input';
 import { useState } from "react";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import axios from "axios";
+// import { useNavigate } from "react-router";
+import { BASE_URL } from "../../utils/constants";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const RegisterForm = () => {
     const theme = useTheme()
+    // const navigate = useNavigate();
     const { control, register, handleSubmit, formState: { errors }, watch } = useForm();
     const isMobileView = useMediaQuery(theme.breakpoints.down('sm'));
     const [showPassword, setShowPassword] = useState(false);
@@ -34,11 +40,34 @@ const RegisterForm = () => {
     };
 
     const onSubmit = async (data) => {
-        console.log(data)
+
+        const updated_data = {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            phoneNumber: data.phone,
+            password: data.password,
+        }
+
+
+
+        try {
+            const response = await axios.post(`${BASE_URL}/api/auth/register`, updated_data);
+            if (response.status === 200) {
+                toast.success('Successfully created account')
+                // navigate('/');
+            } else {
+                toast.error('Account creation failed. Try again later')
+            }
+
+        } catch (error) {
+            toast.error('Account creation failed. Try again later')
+        }
     }
 
     return (
         <Box display="flex" justifyContent="center" alignItems="center" sx={{ width: '100%', padding: 3 }}>
+            <ToastContainer />
             <Box
                 component="form"
                 noValidate autoComplete="off"
@@ -65,7 +94,7 @@ const RegisterForm = () => {
                     type="text"
                     label="First Name"
                     fullWidth
-                    {...register("FirstName", {
+                    {...register("firstName", {
                         required: true,
                     })}
                     error={Boolean(errors.first_name)}
@@ -76,7 +105,7 @@ const RegisterForm = () => {
                     type="text"
                     label="Last Name"
                     fullWidth
-                    {...register("LastName", {
+                    {...register("lastName", {
                         required: true,
                     })}
                     error={Boolean(errors.first_name)}

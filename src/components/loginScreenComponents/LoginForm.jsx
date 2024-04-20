@@ -10,19 +10,54 @@ import {
 } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import { Link } from "react-router-dom";
+import useSignIn from 'react-auth-kit/hooks/useSignIn';
+import axios from "axios";
+import { useNavigate } from "react-router";
+import { BASE_URL } from "../../utils/constants";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const LoginForm = () => {
     const theme = useTheme()
+    const signIn = useSignIn();
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const isMobileView = useMediaQuery(theme.breakpoints.down('sm'));
 
     const onSubmit = async (data) => {
-        console.log(data)
+        try {
+            const response = await axios.post(`${BASE_URL}/api/auth/login`, data);
+            if (response.status === 200) {
+                // console.log(response.data)
+                if (signIn({
+                    auth: {
+                        token: response.data.token,
+                        type: 'Bearer'
+                    },
+                    userState: {
+                        firstName: response.data.firstName,
+                        lastName: response.data.lastName,
+                        uid: response.data.id
+                    }
+                })) {
+                    navigate('/dashboard');
+                } else {
+                    toast.error('Invalid login credentials')
+                }
+            } else {
+                toast.error('Invalid login credentials')
+            }
+        } catch (error) {
+            toast.error('Invalid login credentials')
+
+        }
     }
 
     return (
         <Box display="flex" justifyContent="center" alignItems="center" sx={{ width: '100%', padding: 3 }}>
+            <ToastContainer />
             <Box
                 component="form"
                 noValidate autoComplete="off"
