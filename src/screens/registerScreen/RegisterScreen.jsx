@@ -1,7 +1,8 @@
 import { Box } from "@mui/material"
-import RegisterForm from "../../components/registerScreenComponents /RegisterForm"
+import RegisterForm from "../../components/registerScreenComponents/RegisterForm"
 
-const LoginScreen = () => {
+
+const RegisterScreen = () => {
     return (
         <Box
             sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
@@ -11,4 +12,4 @@ const LoginScreen = () => {
     )
 }
 
-export default LoginScreen
+export default RegisterScreen

@@ -186,7 +186,7 @@ const RegisterForm = () => {
                 </Button>
 
                 <Box sx={{ mt: 2 }}>
-                    <Link to="/login" >
+                    <Link to="/" >
                         Already have an account ? Login
                     </Link>
                 </Box>
