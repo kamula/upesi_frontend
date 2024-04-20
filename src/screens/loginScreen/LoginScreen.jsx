@@ -1,10 +1,13 @@
+import { Box } from "@mui/material"
 import LoginForm from "../../components/loginScreenComponents/LoginForm"
 
 const LoginScreen = () => {
   return (
-    <div>
+    <Box
+      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+    >
       <LoginForm />
-    </div>
+    </Box>
   )
 }
 
