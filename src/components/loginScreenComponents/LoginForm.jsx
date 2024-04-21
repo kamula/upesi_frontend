@@ -43,6 +43,7 @@ const LoginForm = () => {
                     }
                 })) {
                     navigate('/dashboard');
+                    window.location.reload()
                 } else {
                     toast.error('Invalid login credentials')
                 }
