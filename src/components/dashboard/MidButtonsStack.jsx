@@ -6,13 +6,17 @@ import PropTypes from 'prop-types';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import TransferFundsFormDialog from "./modals/TransferFundsFormDialog";
+import WithdrawFundsModalForm from "./modals/WithdrawFundsModalForm";
 
-const MidButtonsStack = ({ handleSuccess }) => {
+const MidButtonsStack = ({ handleSuccess, accounts }) => {
     const theme = useTheme()
     const isMobileView = useMediaQuery(theme.breakpoints.down('sm'));
 
     const [openCreateAccountDialog, setOpenCreateAccountDialog] = useState(false)
     const [openDepositFundsDialog, setOpenDepositFundsDialog] = useState(false)
+    const [openFundsTransferDialog, setOpenFundsTransferDialog] = useState(false)
+    const [openAtmTransferDialog, setOpenAtmTransferDialog] = useState(false)
 
     const handleClickOpenCreateAccountDialog = () => {
         setOpenCreateAccountDialog(true);
@@ -21,7 +25,7 @@ const MidButtonsStack = ({ handleSuccess }) => {
     const handleCloseCreateAccountDIalog = () => {
         setOpenCreateAccountDialog(false);
     };
-    // End of funds deposit functions
+    // End of account transfer functions
 
     const handleClickOpenDepositFundsDialog = () => {
         setOpenDepositFundsDialog(true);
@@ -30,11 +34,29 @@ const MidButtonsStack = ({ handleSuccess }) => {
     const handleCloseDepositFundsDIalog = () => {
         setOpenDepositFundsDialog(false);
     };
+    // End of Funds deposit
+
+    const handleClickFundsTransferDialog = () => {
+        setOpenFundsTransferDialog(true);
+    };
+
+    const handleCloseFundsTransferDIalog = () => {
+        setOpenFundsTransferDialog(false);
+    };
+    // End of Funds Transfer
+
+    const handleClickOpenAtmTransferDialog = () => {
+        setOpenAtmTransferDialog(true);
+    };
+
+    const handleCloseAtmTransferDIalog = () => {
+        setOpenAtmTransferDialog(false);
+    };
 
     const onSuccess = (message) => {
         toast.success(message)
         handleSuccess();
-       
+
     }
 
     return (
@@ -55,8 +77,20 @@ const MidButtonsStack = ({ handleSuccess }) => {
                 >
                     Deposit Funds
                 </Button>
-                <Button variant="contained" sx={{ textTransform: 'none' }}>Transfer Funds</Button>
-                <Button variant="contained" sx={{ textTransform: 'none' }}>Withdraw via ATM</Button>
+                <Button
+                    variant="contained"
+                    sx={{ textTransform: 'none' }}
+                    onClick={handleClickFundsTransferDialog}
+                >
+                    Transfer Funds
+                </Button>
+                <Button
+                    variant="contained"
+                    sx={{ textTransform: 'none' }}
+                    onClick={handleClickOpenAtmTransferDialog}
+                >
+                    Withdraw via ATM
+                </Button>
             </Stack>
             {/* Dialog boxes */}
             <Box>
@@ -86,6 +120,33 @@ const MidButtonsStack = ({ handleSuccess }) => {
                     </DialogContent>
                 </Dialog>
 
+                {/* Create funds transfer dialog */}
+
+                <Dialog
+                    fullWidth={true}
+                    maxWidth="sm"
+                    open={openFundsTransferDialog}
+                    onClose={handleCloseFundsTransferDIalog}
+                >
+                    <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold' }}>Transfer Funds</DialogTitle>
+                    <DialogContent>
+                        <TransferFundsFormDialog onClose={handleCloseFundsTransferDIalog} onSuccess={onSuccess} accounts={accounts} />
+                    </DialogContent>
+                </Dialog>
+                {/* Create Atm transfer dialog */}
+
+                <Dialog
+                    fullWidth={true}
+                    maxWidth="sm"
+                    open={openAtmTransferDialog}
+                    onClose={handleCloseAtmTransferDIalog}
+                >
+                    <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold' }}>Withdraw Funds via ATM</DialogTitle>
+                    <DialogContent>
+                        <WithdrawFundsModalForm onClose={handleCloseAtmTransferDIalog} onSuccess={onSuccess} accounts={accounts} />
+                    </DialogContent>
+                </Dialog>
+
 
             </Box>
         </Box>
@@ -93,7 +154,8 @@ const MidButtonsStack = ({ handleSuccess }) => {
 }
 
 MidButtonsStack.propTypes = {
-    handleSuccess: PropTypes.func.isRequired
+    handleSuccess: PropTypes.func.isRequired,
+    accounts: PropTypes.array.isRequired,
 };
 
 export default MidButtonsStack

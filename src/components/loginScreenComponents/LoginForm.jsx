@@ -14,6 +14,7 @@ import useSignIn from 'react-auth-kit/hooks/useSignIn';
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { BASE_URL } from "../../utils/constants";
+// import GoogleIcon from '@mui/icons-material/Google';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -117,6 +118,10 @@ const LoginForm = () => {
                     type="submit">
                     Login
                 </Button>
+
+                {/* <Button color="warning" variant="outlined" sx={{ width: '100%', mt: 2, textTransform: 'none' }}>
+                    <GoogleIcon /> Login via google
+                </Button> */}
 
                 <Box sx={{ mt: 2 }}>
                     <Link to="/register" >

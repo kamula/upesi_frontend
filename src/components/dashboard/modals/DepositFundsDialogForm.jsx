@@ -21,13 +21,15 @@ const DepositFundsDialogForm = ({ onClose, onSuccess }) => {
                     Authorization: authHeader
                 }
             });
-            
+
             if (response.status === 200) {
                 onSuccess(response.data);
                 onClose();
-            } 
+            } else {
+                toast.error("Error during the deposit submission. Try again")
+            }
         } catch (error) {
-            console.log("Error during the deposit submission:")
+            toast.error("Error during the deposit submission:")
         }
 
     }
@@ -50,14 +52,14 @@ const DepositFundsDialogForm = ({ onClose, onSuccess }) => {
                 placeholder="Amount"
                 fullWidth
                 {...register("depositAmount", {
-                    required: "Amount is required.",
+                    required: "Deposit amount is required.",
                     min: {
                         value: 1,
                         message: "Deposit amount cannot be less than 1."
                     }
                 })}
-                error={Boolean(errors.amount)}
-                helperText={errors.amount ? errors.amount.message : ""}
+                error={Boolean(errors.depositAmount)}
+                helperText={errors.depositAmount ? errors.depositAmount.message : ""}
             />
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
                 <Button onClick={onClose} variant='contained' color='error' sx={{ textTransform: 'none' }}>Close</Button>
