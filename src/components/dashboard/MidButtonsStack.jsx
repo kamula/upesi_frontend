@@ -66,7 +66,7 @@ const MidButtonsStack = () => {
                 >
                     <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold' }}>Create Account</DialogTitle>
                     <DialogContent>
-                        <CreateAccountModalForm onClose={handleCloseCreateAccountDIalog} />
+                        <CreateAccountModalForm onClose={handleCloseCreateAccountDIalog} onSuccess={onSuccess} />
                     </DialogContent>
                 </Dialog>
 
@@ -79,7 +79,7 @@ const MidButtonsStack = () => {
                 >
                     <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold' }}>Deposit Funds</DialogTitle>
                     <DialogContent>
-                        <DepositFundsDialogForm onClose={handleCloseDepositFundsDIalog} onSuccess={onSuccess}/>
+                        <DepositFundsDialogForm onClose={handleCloseDepositFundsDIalog} onSuccess={onSuccess} />
                     </DialogContent>
                 </Dialog>
 
