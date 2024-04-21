@@ -1,11 +1,36 @@
 import { Box, TextField, InputLabel, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
+import useAuthHeader from 'react-auth-kit/hooks/useAuthHeader';
+import PropTypes from 'prop-types';
+import axios from 'axios';
+import { BASE_URL } from '../../../utils/constants'
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
-const DepositFundsDialogForm = ({ onClose }) => {
+
+const DepositFundsDialogForm = ({ onClose, onSuccess }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const authHeader = useAuthHeader()
 
     // function to post acount data
     const onSubmit = async (data) => {
+        try {
+            const response = await axios.patch(`${BASE_URL}/api/accounts/deposit`, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: authHeader
+                }
+            });
+            
+            if (response.status === 200) {
+                onSuccess(response.data);
+                onClose();
+            } else {
+                toast.error("Error during the deposit submission:")
+            }
+        } catch (error) {
+            toast.error("Error during the deposit submission:")
+        }
 
     }
 
@@ -19,12 +44,14 @@ const DepositFundsDialogForm = ({ onClose }) => {
             }
 
         >
+            <ToastContainer />
+
             <InputLabel required sx={{ color: '#000' }}>Amount</InputLabel>
             <TextField
                 type="number"
                 placeholder="Amount"
                 fullWidth
-                {...register("amount", {
+                {...register("depositAmount", {
                     required: "Amount is required.",
                     min: {
                         value: 1,
@@ -41,5 +68,10 @@ const DepositFundsDialogForm = ({ onClose }) => {
         </Box>
     )
 }
+
+DepositFundsDialogForm.propTypes = {
+    onClose: PropTypes.func.isRequired,
+    onSuccess: PropTypes.func.isRequired,
+};
 
 export default DepositFundsDialogForm

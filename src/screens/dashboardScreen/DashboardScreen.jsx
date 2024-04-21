@@ -6,6 +6,8 @@ import MidButtonsStack from "../../components/dashboard/MidButtonsStack"
 import RecentFundsTransferTable from "../../components/dashboard/RecentFundsTransferTable"
 import RecentAtmWithdrawTable from "../../components/dashboard/RecentAtmWithdrawTable"
 
+
+
 const DashboardScreen = () => {
     return (
         <Box>

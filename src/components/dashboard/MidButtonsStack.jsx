@@ -3,6 +3,9 @@ import { useState } from "react";
 import CreateAccountModalForm from "./modals/CreateAccountModalForm";
 import DepositFundsDialogForm from "./modals/DepositFundsDialogForm";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const MidButtonsStack = () => {
     const theme = useTheme()
     const isMobileView = useMediaQuery(theme.breakpoints.down('sm'));
@@ -27,8 +30,13 @@ const MidButtonsStack = () => {
         setOpenDepositFundsDialog(false);
     };
 
+    const onSuccess = (message) => {
+        toast.success(message)
+    }
+
     return (
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+            <ToastContainer />
             <Stack spacing={2} direction={isMobileView ? 'column' : 'row'}>
                 <Button
                     variant="contained"
@@ -71,7 +79,7 @@ const MidButtonsStack = () => {
                 >
                     <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold' }}>Deposit Funds</DialogTitle>
                     <DialogContent>
-                        <DepositFundsDialogForm onClose={handleCloseDepositFundsDIalog} />
+                        <DepositFundsDialogForm onClose={handleCloseDepositFundsDIalog} onSuccess={onSuccess}/>
                     </DialogContent>
                 </Dialog>
 
