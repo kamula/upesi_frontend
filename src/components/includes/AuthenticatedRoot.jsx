@@ -11,13 +11,15 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { Outlet } from 'react-router';
 import UserProfileMenu from '../dashboard/UserProfileMenu';
+import useSignOut from 'react-auth-kit/hooks/useSignOut';
+import { useNavigate } from "react-router";
 
 const drawerWidth = 240;
 
@@ -25,6 +27,15 @@ function AuthenticatedRoot(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [isClosing, setIsClosing] = React.useState(false);
+    const signOut = useSignOut()
+    const navigate = useNavigate();
+
+    const handleSignOut = () => {
+        
+        signOut()
+        navigate('/')
+
+    }
 
     const handleDrawerClose = () => {
         setIsClosing(true);
@@ -45,31 +56,31 @@ function AuthenticatedRoot(props) {
         <div>
             <Toolbar />
             <Divider />
-            <List>
-                {['Inbox', 'Starred', 'Drafts'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
+            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 'calc(100vh - 70px)' }}>
+                <List>
+                    <ListItem disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                <DashboardIcon />
                             </ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemText primary={"Dashboard"} />
                         </ListItemButton>
                     </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {['Trash', 'Spam'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
+                </List>
+                <Box>
+                    <Divider />
+                    <List>
+                        <ListItem disablePadding onClick={handleSignOut}>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <LogoutIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Logout"} />
+                            </ListItemButton>
+                        </ListItem>
+                    </List>
+                </Box>
+            </Box>
         </div>
     );
 
@@ -96,8 +107,8 @@ function AuthenticatedRoot(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-                        Upesi
+                    <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+                        Dashboard
                     </Typography>
                     <UserProfileMenu />
                 </Toolbar>
