@@ -1,7 +1,9 @@
 import { Card, CardHeader, Avatar, Typography, CardContent } from "@mui/material"
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import PropTypes from 'prop-types';
 
-const CurrentBalanceCard = () => {
+
+const CurrentBalanceCard = ({ currentBalance }) => {
     return (
         <Card>
             <CardHeader
@@ -12,17 +14,23 @@ const CurrentBalanceCard = () => {
                 }
 
                 title={
-                    <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Current Balance</Typography>
+                    <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                        Current Balance
+                    </Typography>
                 }
 
             />
             <CardContent>
                 <Typography variant="h5">
-                    KES: 2000
+                    KES: {currentBalance ? currentBalance.toLocaleString() : 0.00}
                 </Typography>
             </CardContent>
         </Card>
     )
 }
+
+CurrentBalanceCard.propTypes = {
+    currentBalance: PropTypes.number.isRequired
+};
 
 export default CurrentBalanceCard

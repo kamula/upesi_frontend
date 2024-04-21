@@ -1,7 +1,9 @@
 import { Card, CardHeader, Avatar, Typography, CardContent } from "@mui/material"
 import PaymentsIcon from '@mui/icons-material/Payments';
+import PropTypes from 'prop-types';
 
-const TotalMountTransferredCard = () => {
+
+const TotalMountTransferredCard = ({ totalAmountTransferred }) => {
   return (
     <Card>
       <CardHeader
@@ -18,11 +20,15 @@ const TotalMountTransferredCard = () => {
       />
       <CardContent>
         <Typography variant="h5">
-          KES: 2000
+          KES: {totalAmountTransferred ? totalAmountTransferred.toLocaleString() : 0.00}
         </Typography>
       </CardContent>
     </Card>
   )
 }
+
+TotalMountTransferredCard.propTypes = {
+  totalAmountTransferred: PropTypes.number.isRequired
+};
 
 export default TotalMountTransferredCard

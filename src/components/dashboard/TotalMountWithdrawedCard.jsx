@@ -1,8 +1,9 @@
 import { Card, CardHeader, Avatar, Typography, CardContent } from "@mui/material"
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import PropTypes from 'prop-types';
 
 
-const TotalMountWithdrawedCard = () => {
+const TotalMountWithdrawedCard = ({ totalAtmWithdrawals }) => {
   return (
     <Card>
       <CardHeader
@@ -19,11 +20,15 @@ const TotalMountWithdrawedCard = () => {
       />
       <CardContent>
         <Typography variant="h5">
-          KES: 2000
+          KES: {totalAtmWithdrawals ? totalAtmWithdrawals.toLocaleString() : 0.00}
         </Typography>
       </CardContent>
     </Card>
   )
 }
+
+TotalMountWithdrawedCard.propTypes = {
+  totalAtmWithdrawals: PropTypes.number.isRequired
+};
 
 export default TotalMountWithdrawedCard
