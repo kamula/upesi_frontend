@@ -2,11 +2,12 @@ import { Stack, useMediaQuery, useTheme, Button, Box, Dialog, DialogTitle, Dialo
 import { useState } from "react";
 import CreateAccountModalForm from "./modals/CreateAccountModalForm";
 import DepositFundsDialogForm from "./modals/DepositFundsDialogForm";
+import PropTypes from 'prop-types';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const MidButtonsStack = () => {
+const MidButtonsStack = ({ handleSuccess }) => {
     const theme = useTheme()
     const isMobileView = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -32,6 +33,8 @@ const MidButtonsStack = () => {
 
     const onSuccess = (message) => {
         toast.success(message)
+        handleSuccess();
+       
     }
 
     return (
@@ -88,5 +91,9 @@ const MidButtonsStack = () => {
         </Box>
     )
 }
+
+MidButtonsStack.propTypes = {
+    handleSuccess: PropTypes.func.isRequired
+};
 
 export default MidButtonsStack

@@ -25,11 +25,9 @@ const DepositFundsDialogForm = ({ onClose, onSuccess }) => {
             if (response.status === 200) {
                 onSuccess(response.data);
                 onClose();
-            } else {
-                toast.error("Error during the deposit submission:")
-            }
+            } 
         } catch (error) {
-            toast.error("Error during the deposit submission:")
+            console.log("Error during the deposit submission:")
         }
 
     }

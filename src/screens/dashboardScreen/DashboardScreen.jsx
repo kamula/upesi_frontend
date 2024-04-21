@@ -33,9 +33,9 @@ const DashboardScreen = () => {
 
     useEffect(() => {
         fetchSummary();
-    }, []);
+    }, [fetchSummary]);
 
-    console.log(accountSummary)
+    
 
     return (
         <Box>
@@ -49,18 +49,18 @@ const DashboardScreen = () => {
                             <TotalMountTransferredCard totalAmountTransferred={accountSummary.totalAmountTransferred} />
                         </Grid>
                         <Grid item xs={12} md={4} sm={12} lg={4} xl={4}>
-                            <TotalMountWithdrawedCard totalAtmWithdrawals={accountSummary.totalAtmWithdrawals} />
+                            <TotalMountWithdrawedCard totalAtmWithdrawals={accountSummary.totalAmountWithdrawn} />
                         </Grid>
                     </Grid>
 
                     <Box>
-                        <MidButtonsStack />
+                        <MidButtonsStack handleSucceess={fetchSummary} />
                         <Grid container spacing={2} sx={{ mt: 2 }}>
                             <Grid item xs={12} md={6} sm={12} lg={6} xl={6}>
-                                <RecentFundsTransferTable />
+                                <RecentFundsTransferTable recentFundsTransfers={accountSummary.recentTransfers} />
                             </Grid>
                             <Grid item xs={12} md={6} sm={12} lg={6} xl={6}>
-                                <RecentAtmWithdrawTable />
+                                <RecentAtmWithdrawTable recentAtmWithdraws={accountSummary.recentWithdraws} />
                             </Grid>
                         </Grid>
                     </Box>
