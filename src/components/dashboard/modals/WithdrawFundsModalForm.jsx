@@ -27,7 +27,7 @@ const WithdrawFundsModalForm = ({ onClose, onSuccess }) => {
                 toast.error("Error during the deposit submission. Try again")
             }
         } catch (error) {
-            toast.error("Error during the deposit submission:")
+            toast.error(error.response.data)
         }
 
     }
@@ -63,8 +63,8 @@ const WithdrawFundsModalForm = ({ onClose, onSuccess }) => {
                     helperText={errors.bankAccountNumber ? errors.bankAccountNumber.message : ""}
                 />
             </Box>
-            <Box>
-                <InputLabel required sx={{ color: '#000' }}>Bank Account Number</InputLabel>
+            <Box sx={{ mt: 2 }}>
+                <InputLabel required sx={{ color: '#000' }}>Amount</InputLabel>
                 <TextField
                     type="number"
                     placeholder="Amount"

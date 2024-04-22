@@ -28,7 +28,7 @@ const TransferFundsFormDialog = ({ onClose, onSuccess, accounts }) => {
                 toast.error("Error during the deposit submission. Try again")
             }
         } catch (error) {
-            toast.error("Error during the deposit submission:")
+            toast.error(error.response.data)
         }
 
     }
