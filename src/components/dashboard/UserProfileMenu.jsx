@@ -5,11 +5,11 @@ import MenuItem from '@mui/material/MenuItem';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Link } from "react-router-dom";
 import useSignOut from 'react-auth-kit/hooks/useSignOut';
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 
 export default function UserProfileMenu() {
     const signOut = useSignOut()
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -22,7 +22,8 @@ export default function UserProfileMenu() {
     const handleSignOut = () => {
         handleClose()
         signOut()
-        navigate('/')
+        window.location.reload()
+        // navigate('/')
 
     }
 
