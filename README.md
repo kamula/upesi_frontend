@@ -37,6 +37,8 @@ These instructions will get you a copy of the project up and running on your loc
    ```bash
    yarn install
    ```
+4. Configure API request url in constants.js file(src/utils/constants.js):
+ 
 
 ### Running the application
 
