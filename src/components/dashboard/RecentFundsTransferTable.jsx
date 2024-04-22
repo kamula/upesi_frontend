@@ -1,11 +1,15 @@
 import { Box, Typography, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Avatar } from "@mui/material"
 import PropTypes from 'prop-types';
 import PaymentsIcon from '@mui/icons-material/Payments';
+import { formatDateTime } from "../../utils/AuthStore";
+
+
 
 
 const RecentFundsTransferTable = ({ recentFundsTransfers }) => {
+
     return (
-        <Box>
+        <Box sx={{ boxShadow: 1, p: 1 }}>
             <Typography variant="h6">Recent Funds Transfers</Typography>
             <TableContainer>
                 <Table>
@@ -26,8 +30,8 @@ const RecentFundsTransferTable = ({ recentFundsTransfers }) => {
                                             <PaymentsIcon />
                                         </Avatar>
                                     </TableCell>
-                                    <TableCell>{withdraw.date}</TableCell>
-                                    <TableCell>{withdraw.bankAccountNumber}</TableCell>
+                                    <TableCell>{formatDateTime(withdraw.date)}</TableCell>
+                                    <TableCell>{withdraw.destinationAccount}</TableCell>
                                     <TableCell>{withdraw.amount.toLocaleString()}</TableCell>
                                 </TableRow>
                             ))

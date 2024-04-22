@@ -57,7 +57,7 @@ This command starts the development server using Vite, which will open your app 
 Below are some screenshots of the Upesi Frontend application:
 
 ### User Dashboard
-![upesi dashboard](https://github.com/kamula/upesi_frontend/assets/35394098/e5df89af-67b7-418c-8367-2c4b47d65d26)
+![dashboardup](https://github.com/kamula/upesi_frontend/assets/35394098/be83b070-0211-4d16-9022-ede30f3349a9)
 *The secure login page styled with Material-UI and using React Auth.*
 
 ### Fund Transfer Form
