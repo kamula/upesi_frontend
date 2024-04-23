@@ -82,7 +82,7 @@ const DashboardScreen = () => {
                     </Grid>
 
                     <Box sx={{ overflow: 'hidden' }}>
-                        <MidButtonsStack handleSuccess={fetchSummary} accounts={accounts} />
+                        <MidButtonsStack handleSuccess={fetchSummary} accounts={accounts} hasCreatedAccount={accountSummary.hasCreatedAccount} />
                     </Box>
                     <Grid container spacing={2} sx={{ mt: 2 }}>
                         <Grid item xs={12} md={6} sm={12} lg={6} xl={6}>
