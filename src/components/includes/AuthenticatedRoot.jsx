@@ -5,7 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -20,19 +19,21 @@ import { Outlet } from 'react-router';
 import UserProfileMenu from '../dashboard/UserProfileMenu';
 import useSignOut from 'react-auth-kit/hooks/useSignOut';
 import { useNavigate } from "react-router";
+import PropTypes from 'prop-types';
 
 const drawerWidth = 240;
 
 function AuthenticatedRoot(props) {
-    const { window } = props;
+    // const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [isClosing, setIsClosing] = React.useState(false);
     const signOut = useSignOut()
     const navigate = useNavigate();
 
     const handleSignOut = () => {
-        
+
         signOut()
+        window.location.reload();
         navigate('/')
 
     }
@@ -85,7 +86,7 @@ function AuthenticatedRoot(props) {
     );
 
     // Remove this const when copying and pasting into your project.
-    const container = window !== undefined ? () => window().document.body : undefined;
+    const container = props.window !== undefined ? () => window().document.body : undefined;
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -156,6 +157,11 @@ function AuthenticatedRoot(props) {
         </Box>
     );
 }
+
+AuthenticatedRoot.propTypes = {
+    window: PropTypes.any,
+
+};
 
 
 
