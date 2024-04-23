@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import TransferFundsFormDialog from "./modals/TransferFundsFormDialog";
 import WithdrawFundsModalForm from "./modals/WithdrawFundsModalForm";
 
-const MidButtonsStack = ({ handleSuccess, accounts }) => {
+const MidButtonsStack = ({ handleSuccess, accounts, hasCreatedAccount }) => {
     const theme = useTheme()
     const isMobileView = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -59,17 +59,22 @@ const MidButtonsStack = ({ handleSuccess, accounts }) => {
 
     }
 
+
     return (
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
             <ToastContainer />
             <Stack spacing={2} direction={isMobileView ? 'column' : 'row'}>
-                <Button
-                    variant="contained"
-                    sx={{ textTransform: 'none' }}
-                    onClick={handleClickOpenCreateAccountDialog}
-                >
-                    Create Account
-                </Button>
+                {
+                    hasCreatedAccount ?
+                        <></> :
+                        <Button
+                            variant="contained"
+                            sx={{ textTransform: 'none' }}
+                            onClick={handleClickOpenCreateAccountDialog}
+                        >
+                            Create Account
+                        </Button>
+                }
                 <Button
                     variant="contained"
                     sx={{ textTransform: 'none' }}
@@ -156,6 +161,7 @@ const MidButtonsStack = ({ handleSuccess, accounts }) => {
 MidButtonsStack.propTypes = {
     handleSuccess: PropTypes.func.isRequired,
     accounts: PropTypes.array.isRequired,
+    hasCreatedAccount: PropTypes.bool.isRequired,
 };
 
 export default MidButtonsStack
