@@ -1,4 +1,4 @@
-import { Box, Grid } from "@mui/material"
+import { Box, Grid, CircularProgress } from "@mui/material"
 import CurrentBalanceCard from "../../components/dashboard/CurrentBalanceCard"
 import TotalMountTransferredCard from "../../components/dashboard/TotalMountTransferredCard"
 import TotalMountWithdrawedCard from "../../components/dashboard/TotalMountWithdrawedCard"
@@ -16,8 +16,10 @@ const DashboardScreen = () => {
     const authHeader = useAuthHeader()
     const [accountSummary, setAccountSummary] = useState(null);
     const [accounts, setFetchAccounts] = useState([]);
+    const [loading, setLoading] = useState(false)
 
     const fetchSummary = async () => {
+        setLoading(true)
         try {
             const response = await axios.get(`${BASE_URL}/api/accounts/details`, {
                 headers: {
@@ -29,6 +31,8 @@ const DashboardScreen = () => {
         } catch (error) {
             console.error('Failed to fetch account summary:', error);
             // Optionally, handle errors e.g., by setting some error state to show in the UI
+        } finally {
+            setLoading(false)
         }
     };
     const fetchAccounts = async () => {
@@ -53,7 +57,13 @@ const DashboardScreen = () => {
 
 
 
-    console.log(accounts)
+    if (loading) {
+        return (
+            <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+                <CircularProgress />
+            </Box>
+        );
+    }
 
     return (
         <Box>
